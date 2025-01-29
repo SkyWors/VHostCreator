@@ -1,9 +1,17 @@
 import os
+import sys
+
+if (os.getuid() == 0) == False:
+	print("Le script doit être utiliser avec les permissions root.")
+	sys.exit()
 
 domain = input("Domaine : ")
 path = input("Chemin : ")
 
-template = open("template.conf", "r").read()
+programPath = os.path.dirname(os.path.realpath(__file__))
+templatePath = os.path.join(programPath, "template.conf")
+
+template = open(templatePath, "r").read()
 
 template = template.replace("{domain}", domain)
 template = template.replace("{path}", path)
